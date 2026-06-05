@@ -10,10 +10,15 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials) {
-        // 🔥 usuario hardcode (puedes cambiar luego a DB)
+        // Credenciales del admin tomadas de variables de entorno.
+        const adminUser = process.env.ADMIN_USERNAME;
+        const adminPass = process.env.ADMIN_PASSWORD;
+
         if (
-          credentials.username === "admin" &&
-          credentials.password === "123456"
+          adminUser &&
+          adminPass &&
+          credentials.username === adminUser &&
+          credentials.password === adminPass
         ) {
           return {
             id: "1",

@@ -6,14 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@libsql/client": "^0.8.1",
+    "@prisma/adapter-libsql": "^5.22.0",
     "@prisma/client": "^5.22.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tiptap/extension-image": "^3.22.3",
     "@tiptap/react": "^3.22.3",
     "@tiptap/starter-kit": "^3.22.3",
+    "@vercel/blob": "^2.4.0",
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "next": "16.2.3",

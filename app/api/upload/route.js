@@ -1,5 +1,6 @@
-import { writeFile } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
+
+export const runtime = "nodejs";
 
 export async function POST(req) {
   const data = await req.formData();
@@ -9,16 +10,17 @@ export async function POST(req) {
     return new Response("No file", { status: 400 });
   }
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+  // Nombre único para evitar colisiones, conservando el original.
+  const fileName = `${Date.now()}-${file.name}`;
 
-  const fileName = Date.now() + "-" + file.name;
-
-  const filePath = path.join(process.cwd(), "public/uploads", fileName);
-
-  await writeFile(filePath, buffer);
+  // Sube a Vercel Blob. El token (BLOB_READ_WRITE_TOKEN) se inyecta
+  // automáticamente en Vercel; en local hay que traerlo con `vercel env pull`.
+  const blob = await put(`uploads/${fileName}`, file, {
+    access: "public",
+    addRandomSuffix: false,
+  });
 
   return Response.json({
-    url: `/uploads/${fileName}`, // 🔥 URL pública
+    url: blob.url, // URL pública del CDN de Vercel Blob
   });
 }

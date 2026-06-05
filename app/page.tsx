@@ -5,10 +5,35 @@ import Terminal from "@/components/Terminal";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from 'rehype-raw';
 
+type Profile = {
+  name: string;
+  bio: string;
+  about: string;
+  image?: string | null;
+};
+
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tech: string;
+  image?: string | null;
+};
+
+type HomeSection = {
+  id: number;
+  title: string;
+  content: string;
+  image?: string | null;
+  link?: string | null;
+  order: number;
+  alignment: string;
+};
+
 export default function Home() {
-  const [profile, setProfile] = useState(null);
-  const [projects, setProjects] = useState([]);
-  const [sections, setSections] = useState([]);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [sections, setSections] = useState<HomeSection[]>([]);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   // Fetch data only once
@@ -58,7 +83,7 @@ export default function Home() {
     );
   };
 
-  const goToSection = (index) => {
+  const goToSection = (index: number) => {
     setCurrentSectionIndex(index);
   }; 
 
