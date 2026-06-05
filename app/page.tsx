@@ -88,15 +88,15 @@ export default function Home() {
   }; 
 
   return (
-    <div className="space-y-32 pb-32 max-w-12xl mx-auto pt-10">
+    <div className="space-y-20 md:space-y-32 pb-32 max-w-7xl mx-auto pt-10">
       {/* Hero Section */}
-      <section className="min-h-[85vh] flex flex-col md:flex-row items-center gap-16 px-6">
-        <div className="w-full md:w-2/5 flex justify-center animate-fade-in relative">
+      <section className="min-h-[85vh] flex flex-col lg:flex-row items-center gap-10 md:gap-16 px-2 sm:px-6">
+        <div className="w-full lg:w-2/5 flex justify-center animate-fade-in relative">
           <div className="absolute -inset-4 bg-neon/10 blur-[60px] rounded-full animate-pulse-slow" />
           <div className="relative group">
             {/* Sci-fi Image Frame */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-neon to-blue-500 rounded-[30px] opacity-20 group-hover:opacity-40 transition duration-500" />
-            <div className="relative w-72 h-72 md:w-150 md:h-150 border border-neon/30 p-3 bg-black/40 backdrop-blur-sm rounded-[28px] overflow-hidden shadow-2xl">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 border border-neon/30 p-3 bg-black/40 backdrop-blur-sm rounded-[28px] overflow-hidden shadow-2xl">
               {profile?.image ? (
                 <img
                   src={profile.image}
@@ -115,10 +115,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-full md:w-3/5 space-y-8">
+        <div className="w-full lg:w-3/5 space-y-8">
           <div className="space-y-2">
-            <div className="text-xs uppercase tracking-[0.5em] text-neon/60 font-bold ml-1 animate-pulse">IDENTIDAD_AUTORIZADA</div>
-            <h1 className="text-5xl md:text-7xl glow mb-2 font-black uppercase tracking-tighter text-white leading-none">
+            <div className="text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-neon/60 font-bold ml-1 animate-pulse">IDENTIDAD_AUTORIZADA</div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl glow mb-2 font-black uppercase tracking-tighter text-white leading-none">
               {profile?.name || "Cargando..."}
             </h1>
             <div className="h-1 w-20 bg-neon shadow-[0_0_10px_var(--neon)]" />
@@ -154,12 +154,12 @@ export default function Home() {
                     `}
                   >
                     <div className={`
-                      flex flex-col gap-12 cyber-panel border border-neon/20 py-16 px-10 bg-black/40 backdrop-blur-xl relative overflow-hidden group md:flex-row`}>
+                      flex flex-col gap-8 md:gap-12 cyber-panel border border-neon/20 py-10 px-6 md:py-16 md:px-10 bg-black/40 backdrop-blur-xl relative overflow-hidden group lg:flex-row`}>
                       {/* Animated Background Line */}
                       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-neon/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                       
                       {section.image && (
-                        <div className="w-full md:w-1/3 shrink-0 flex justify-center md:justify-end">
+                        <div className="w-full lg:w-1/3 shrink-0 flex justify-center lg:justify-end">
                           
                           <div className="relative w-[220px] h-[220px] md:w-[260px] md:h-[260px] overflow-hidden rounded-xl border border-neon/30 bg-black/60 flex items-center justify-center">
                             
@@ -210,7 +210,7 @@ export default function Home() {
                 {/* Previous Button */}
                 <button
                   onClick={prevSection}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:translate-x-0 z-10 p-3 border border-neon/40 bg-black/60 hover:bg-neon hover:text-black text-neon transition-all duration-300 group"
+                  className="absolute left-1 sm:left-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 border border-neon/40 bg-black/60 hover:bg-neon hover:text-black text-neon transition-all duration-300 group"
                   aria-label="Previous section"
                 >
                   <span className="text-2xl font-bold">‹</span>
@@ -219,7 +219,7 @@ export default function Home() {
                 {/* Next Button */}
                 <button
                   onClick={nextSection}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-0 z-10 p-3 border border-neon/40 bg-black/60 hover:bg-neon hover:text-black text-neon transition-all duration-300 group"
+                  className="absolute right-1 sm:right-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 border border-neon/40 bg-black/60 hover:bg-neon hover:text-black text-neon transition-all duration-300 group"
                   aria-label="Next section"
                 >
                   <span className="text-2xl font-bold">›</span>
@@ -249,13 +249,13 @@ export default function Home() {
       )}
 
       {/* Projects Section */}
-      <section className="space-y-16 px-6">
+      <section className="space-y-16 px-2 sm:px-6">
         <div className="text-center space-y-4">
-          <h2 className="text-4xl md:text-5xl glow uppercase font-black tracking-[0.25em] text-white italic">MISIONES_CUMLPIDAS</h2>
+          <h2 className="text-xl sm:text-4xl md:text-5xl glow uppercase font-black tracking-tight sm:tracking-[0.25em] text-white italic break-words">MISIONES_CUMLPIDAS</h2>
           <div className="h-1 w-32 bg-gradient-to-r from-transparent via-neon to-transparent mx-auto" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
           {projects.map((project, index) => (
             <div
               key={project.id}

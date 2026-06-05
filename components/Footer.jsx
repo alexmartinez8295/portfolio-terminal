@@ -12,12 +12,12 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative mt-32 overflow-hidden border-t border-neon/10 bg-black/40 backdrop-blur-xl">
+    <footer className="relative mt-20 md:mt-32 overflow-hidden border-t border-neon/10 bg-black/40 backdrop-blur-xl">
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[radial-gradient(circle_at_50%_50%,var(--neon)_0%,transparent_70%)]" />
-      
-      <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+
+      <div className="max-w-6xl mx-auto px-6 py-12 md:py-20 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
           {/* Column 1: Brand/Logo */}
           <div className="col-span-1 md:col-span-1 space-y-6">
             <div className="space-y-2">

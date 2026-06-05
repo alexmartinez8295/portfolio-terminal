@@ -25,25 +25,25 @@ export default function Navbar() {
 
   return (
     <nav className={`
-  fixed top-0 left-0 w-full z-[100] pointer-events-none flex justify-start px-6 py-2 transition-all duration-700
+  fixed top-0 left-0 w-full z-[100] pointer-events-none flex justify-start px-3 sm:px-6 py-2 transition-all duration-700
   ${!isScrolled ? 'bg-[#5C5959]' : 'bg-transparent'}
 `}>
       <div className={`
-        relative flex items-center transition-all duration-700 pointer-events-auto ease-in-out
-        ${isScrolled 
-          ? 'w-14 h-14 justify-center rounded-full border border-neon/50 bg-black/80 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,0.3)]' 
-          : 'w-auto px-8 py-3 bg-black/60 backdrop-blur-xl border border-neon/20 cyber-panel shadow-[0_0_30px_rgba(57,255,20,0.1)]'}
+        relative flex items-center transition-all duration-700 pointer-events-auto ease-in-out max-w-full
+        ${isScrolled
+          ? 'w-14 h-14 justify-center rounded-full border border-neon/50 bg-black/80 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,0.3)]'
+          : 'w-auto px-3 sm:px-8 py-3 bg-black/60 backdrop-blur-xl border border-neon/20 cyber-panel shadow-[0_0_30px_rgba(57,255,20,0.1)]'}
       `}>
         
         {/* Full Menu (Visible only when not scrolled) */}
-        <div className={`flex gap-1 md:gap-8 transition-all duration-500 ${isScrolled ? 'opacity-0 scale-90 pointer-events-none absolute' : 'opacity-100 scale-100'}`}>
+        <div className={`flex gap-1.5 sm:gap-4 md:gap-8 transition-all duration-500 ${isScrolled ? 'opacity-0 scale-90 pointer-events-none absolute' : 'opacity-100 scale-100'}`}>
           {navLinks.map((item) => (
-            <Link 
+            <Link
               key={item.name}
-              href={item.path} 
-              className="group relative px-2 py-1"
+              href={item.path}
+              className="group relative px-1 sm:px-2 py-1"
             >
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-neon/60 group-hover:text-neon group-hover:glow transition-all duration-300">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.3em] font-bold text-neon/60 group-hover:text-neon group-hover:glow transition-all duration-300">
                 {item.name}
               </span>
               <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon group-hover:w-full transition-all duration-300 shadow-[0_0_8px_var(--neon)]" />

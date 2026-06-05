@@ -107,9 +107,9 @@ export default function Terminal({ profile }) {
           </div>
         </div>
 
-        <div 
+        <div
           ref={terminalRef}
-          className="p-6 h-[40vh] md:h-[50vh] overflow-y-auto font-mono text-sm md:text-base scroll-smooth custom-scrollbar"
+          className="p-4 sm:p-6 h-[45vh] md:h-[50vh] overflow-y-auto font-mono text-xs sm:text-sm md:text-base scroll-smooth custom-scrollbar"
         >
           {history.map((line, i) => (
             <pre key={i} className="text-neon/90 whitespace-pre-wrap mb-2 leading-relaxed selection:bg-neon selection:text-black">

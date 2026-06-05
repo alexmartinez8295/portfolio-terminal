@@ -16,18 +16,18 @@ export default function Blog() {
   }, []);
 
   return (
-    <div className="space-y-32 pb-32 max-w-6xl mx-auto pt-24">
-      <h1 className="text-xl mb-4 glow">Blog</h1>
+    <div className="space-y-6 pb-32 max-w-6xl mx-auto pt-24">
+      <h1 className="text-2xl md:text-3xl mb-4 glow">Blog</h1>
 
       {posts.length === 0 && (
         <p>No hay publicaciones aún...</p>
       )}
 
       {posts.map((p) => (
-        <div key={p.id} className="border border-neon p-4 mb-4">
-          <h2 className="text-lg">{p.title}</h2>
+        <div key={p.id} className="border border-neon p-4 sm:p-5 rounded bg-black/40">
+          <h2 className="text-lg md:text-xl mb-3 break-words">{p.title}</h2>
 
-          <Link href={`/blog/${p.id}`} className="text-blue-400">
+          <Link href={`/blog/${p.id}`} className="inline-block py-1 text-blue-400 hover:text-neon transition-colors">
             Leer más →
           </Link>
         </div>

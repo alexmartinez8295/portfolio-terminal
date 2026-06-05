@@ -33,37 +33,40 @@ export default function Contacto() {
 
   return (
     <div className="max-w-xl mx-auto pt-24">
-      <h1 className="text-xl mb-4 glow">Contacto</h1>
+      <h1 className="text-2xl md:text-3xl mb-6 glow">Contacto</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           placeholder="Nombre"
           value={form.name}
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
           }
-          className="block mb-2 bg-black border border-neon p-2 w-full"
+          className="block bg-black border border-neon p-3 w-full text-base rounded outline-none focus:ring-1 focus:ring-neon/50"
         />
 
         <input
+          type="email"
+          inputMode="email"
           placeholder="Correo"
           value={form.email}
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
           }
-          className="block mb-2 bg-black border border-neon p-2 w-full"
+          className="block bg-black border border-neon p-3 w-full text-base rounded outline-none focus:ring-1 focus:ring-neon/50"
         />
 
         <textarea
           placeholder="Mensaje"
+          rows={5}
           value={form.message}
           onChange={(e) =>
             setForm({ ...form, message: e.target.value })
           }
-          className="block mb-2 bg-black border border-neon p-2 w-full"
+          className="block bg-black border border-neon p-3 w-full text-base rounded outline-none focus:ring-1 focus:ring-neon/50 resize-y"
         />
 
-        <button className="border border-neon px-4 py-2">
+        <button className="w-full sm:w-auto border border-neon px-6 py-3 text-base font-bold uppercase tracking-wider hover:bg-neon hover:text-black transition-all rounded">
           Enviar
         </button>
       </form>

@@ -11,7 +11,7 @@ export default function RootLayout({
       <body className="bg-black text-neon font-mono flex flex-col min-h-screen">
         <Background />
         <Navbar />
-        <main className="p-7 flex-grow pt-24">{children}</main>
+        <main className="p-4 sm:p-7 flex-grow pt-20 sm:pt-24">{children}</main>
         <Footer />
       </body>
     </html>

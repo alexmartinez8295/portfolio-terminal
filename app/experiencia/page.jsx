@@ -12,14 +12,14 @@ export default function Experiencia() {
   }, []);
 
   return (
-    <div className="space-y-32 pb-32 max-w-6xl mx-auto pt-24">
-      <h1 className="text-xl mb-6 glow">Experiencia / Proyectos</h1>
+    <div className="space-y-10 md:space-y-16 pb-32 max-w-6xl mx-auto pt-24">
+      <h1 className="text-2xl md:text-3xl mb-6 glow">Experiencia / Proyectos</h1>
 
       {projects.length === 0 && (
         <p className="text-gray-500">No hay proyectos para mostrar aún...</p>
       )}
 
-      <div className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
         {projects.map((p) => (
           <div
             key={p.id}
