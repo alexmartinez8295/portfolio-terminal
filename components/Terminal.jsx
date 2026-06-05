@@ -2,6 +2,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
+// ✏️ Edita aquí el mensaje del comando "kari" (los \n crean saltos de línea).
+const KARI_MESSAGE = `Hola, amor...
+
+Hay cosas que es más fácil escribir que decir.
+Gracias por estar, por tu paciencia y por tu amor incondicional.
+Eres mi más grande inspiración y espero poder llegar a ser para ti lo que tú eres para mí.
+— Te amo mucho <3`;
+
 export default function Terminal({ profile }) {
   const [history, setHistory] = useState([
     '| - - - - - - - - - - - - - - - - - |',
@@ -16,6 +24,8 @@ export default function Terminal({ profile }) {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  // Cuando es true, el próximo Enter limpia la consola (usado por "kari").
+  const [pendingClear, setPendingClear] = useState(false);
   const router = useRouter();
   const terminalRef = useRef(null);
 
@@ -73,6 +83,17 @@ export default function Terminal({ profile }) {
         setTimeout(() => router.push("/contacto"), 800);
         break;
 
+      case "kari":
+        setHistory((prev) => [...prev, ""]);
+        await typeText(KARI_MESSAGE);
+        setHistory((prev) => [
+          ...prev,
+          "",
+          ">>> [Presiona ENTER para cerrar el mensaje...]",
+        ]);
+        setPendingClear(true);
+        break;
+
       case "clear":
         setHistory(["BORRANDO_HISTORIAL..."]);
         break;
@@ -84,6 +105,13 @@ export default function Terminal({ profile }) {
 
   const onEnter = (e) => {
     if (e.key === "Enter" && !isTyping) {
+      // Tras el mensaje de "kari", el siguiente Enter limpia la consola.
+      if (pendingClear) {
+        setHistory([]);
+        setPendingClear(false);
+        setInput("");
+        return;
+      }
       handleCommand(input);
       setInput("");
     }
