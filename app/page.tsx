@@ -136,12 +136,13 @@ export default function Home() {
           {/* Carousel Container */}
           <div className="relative w-full min-h-[450px] pb-14 sm:pb-0">
             {/* Slides — todas en la misma celda del grid para que el
-                contenedor crezca con la slide más alta (evita desbordes en móvil) */}
-            <div className="grid w-full">
+                contenedor crezca con la slide más alta (evita desbordes en móvil).
+                grid-cols-1 (minmax(0,1fr)) + min-w-0 evitan el desborde horizontal. */}
+            <div className="grid grid-cols-1 w-full">
               {sections.map((section, index) => (
                 <div
                   key={section.id}
-                  className={`[grid-area:1/1] w-full transition-all duration-700 ease-out ${
+                  className={`[grid-area:1/1] w-full min-w-0 transition-all duration-700 ease-out ${
                     index === currentSectionIndex
                       ? 'opacity-100 pointer-events-auto'
                       : 'opacity-0 pointer-events-none'
