@@ -251,7 +251,7 @@ export default function Home() {
       {/* Projects Section */}
       <section className="space-y-16 px-2 sm:px-6">
         <div className="text-center space-y-4">
-          <h2 className="text-xl sm:text-4xl md:text-5xl glow uppercase font-black tracking-tight sm:tracking-[0.25em] text-white italic break-words">MISIONES_CUMLPIDAS</h2>
+          <h2 className="text-xl sm:text-4xl md:text-5xl glow uppercase font-black tracking-tight sm:tracking-[0.25em] text-white italic break-words">MI_EXPERIENCIA</h2>
           <div className="h-1 w-32 bg-gradient-to-r from-transparent via-neon to-transparent mx-auto" />
         </div>
 
@@ -306,7 +306,7 @@ export default function Home() {
       <section className="scroll-reveal max-w-5xl mx-auto px-6 py-20 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-20 bg-gradient-to-b from-neon to-transparent opacity-30" />
         <div className="cyber-panel border border-white/5 p-12 bg-white/[0.02] backdrop-blur-3xl text-center space-y-6">
-          <h2 className="text-sm uppercase font-black tracking-[0.4em] text-white/30 italic">AlxSite_Terminal_v1.0_Status: Online</h2>
+          <h2 className="text-sm uppercase font-black tracking-[0.4em] text-white/30 italic">Acerca_de_mí</h2>
           <div className="text-lg md:text-xl leading-relaxed opacity-50 whitespace-pre-wrap font-mono text-neon italic max-w-3xl mx-auto">
             "{profile?.about}"
           </div>
