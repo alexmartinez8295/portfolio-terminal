@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Profile {
+  id    Int     @id @default(autoincrement())
+  name  String
+  bio   String
+  about String
+  image String?
+}
+
+model HomeSection {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String
+  image     String?
+  link      String?
+  order     Int     @default(0)
+  alignment String  @default("left")
+}
+
+model Project {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  tech        String
+  image       String?
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  postId  Int
+  author  String
+  content String
+
+  post Post @relation(fields: [postId], references: [id])
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

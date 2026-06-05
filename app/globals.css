@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #050505;
+  --foreground: #39ff14;
+  --neon: #39ff14;
+  --neon-dim: rgba(57, 255, 20, 0.3);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-neon: var(--neon);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Geist Mono', 'Fira Code', monospace;
+  overflow-x: hidden;
+}
+
+/* Futuristic Scanlines Effect */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.glow {
+  text-shadow: 0 0 5px var(--neon), 0 0 10px var(--neon), 0 0 20px var(--neon-dim);
+}
+
+.glow-border {
+  box-shadow: 0 0 5px var(--neon-dim), inset 0 0 5px var(--neon-dim);
+}
+
+/* Rounded Sci-fi Corners */
+.cyber-panel {
+  border-radius: 20px 4px 20px 4px;
+}
+
+.cyber-button {
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+  transition: all 0.3s ease;
+}
+
+.cyber-button:hover {
+  filter: brightness(1.2);
+  transform: translateY(-1px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s infinite ease-in-out;
+}
