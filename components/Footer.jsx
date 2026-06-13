@@ -94,10 +94,10 @@ export default function Footer() {
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[10px] font-mono opacity-30 uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} {profile?.name || "Terminal Portfolio"} // All protocols reserved.
+            © {new Date().getFullYear()} {profile?.name || "Terminal Portfolio"} // Protocolos aplicados.
           </div>
           <div className="text-[8px] font-mono opacity-20 uppercase tracking-[0.5em] animate-pulse">
-            Connection secure // end_to_end_encryption_active
+            Conexión segura // encriptacion_punto_a_punto_activada
           </div>
         </div>
       </div>
