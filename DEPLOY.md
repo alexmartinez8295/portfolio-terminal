@@ -98,6 +98,12 @@ Project → **Settings** → **Environment Variables** (entorno *Production* y *
 | `ADMIN_USERNAME`       | *(usuario del panel admin)*                                 |
 | `ADMIN_PASSWORD`       | *(contraseña fuerte)*                                       |
 | `BLOB_READ_WRITE_TOKEN`| *(se añade solo al crear el store de Blob)*                 |
+| `GEMINI_API_KEY`       | *(clave gratuita del chatbot: https://aistudio.google.com/apikey)* |
+
+> **Chatbot IA:** el asistente flotante usa Google Gemini y lee el contexto
+> (perfil, proyectos, blog) desde la misma BD de Turso. Sin `GEMINI_API_KEY` el
+> widget responde con un aviso de "no configurado" pero el resto del sitio funciona
+> normal. Las cotizaciones que genera se guardan como mensajes en `/admin/contact`.
 
 > **Por qué `DATABASE_URL` es un fichero "dummy":** en producción la app se conecta a
 > Turso mediante el adaptador libSQL (`lib/prisma.js`), no por la `datasource`. Pero

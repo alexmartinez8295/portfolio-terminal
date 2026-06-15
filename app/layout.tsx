@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Background from "@/components/Background";
+import ChatWidget from "@/components/ChatWidget";
 
 export const metadata: Metadata = {
   title: "AlxDev!",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <Navbar />
         <main className="p-4 sm:p-7 flex-grow pt-20 sm:pt-24">{children}</main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
