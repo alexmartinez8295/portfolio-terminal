@@ -25,10 +25,18 @@ export default function ThreeBackground() {
     // Guardamos la limpieza real una vez que three termina de cargar.
     let cleanup = () => {};
 
+    // Detecta pantallas pequeñas para bajar la carga en móviles.
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
     const pointer = { x: 0, y: 0 };
-    const onPointerMove = (e) => {
-      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
+    const setPointerFrom = (clientX, clientY) => {
+      pointer.x = (clientX / window.innerWidth) * 2 - 1;
+      pointer.y = (clientY / window.innerHeight) * 2 - 1;
+    };
+    const onPointerMove = (e) => setPointerFrom(e.clientX, e.clientY);
+    const onTouchMove = (e) => {
+      const t = e.touches[0];
+      if (t) setPointerFrom(t.clientX, t.clientY);
     };
 
     import("three").then((THREE) => {
@@ -44,14 +52,15 @@ export default function ThreeBackground() {
       );
       camera.position.z = 500;
 
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
+      // Menor pixelRatio en móvil para no exigir de más a la GPU.
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0); // transparente: deja ver el fondo negro
       mount.appendChild(renderer.domElement);
 
-      // --- Campo de partículas ---
-      const COUNT = 1400;
+      // --- Campo de partículas (menos densidad en móvil) ---
+      const COUNT = isMobile ? 650 : 1400;
       const positions = new Float32Array(COUNT * 3);
       const colors = new Float32Array(COUNT * 3);
 
@@ -79,7 +88,8 @@ export default function ThreeBackground() {
       geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
       const material = new THREE.PointsMaterial({
-        size: 3,
+        // Partículas algo más grandes en móvil para que se aprecien.
+        size: isMobile ? 4 : 3,
         vertexColors: true,
         transparent: true,
         opacity: 0.55,
@@ -97,7 +107,10 @@ export default function ThreeBackground() {
         renderer.setSize(window.innerWidth, window.innerHeight);
       };
       window.addEventListener("resize", onResize);
-      if (!reduceMotion) window.addEventListener("pointermove", onPointerMove);
+      if (!reduceMotion) {
+        window.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("touchmove", onTouchMove, { passive: true });
+      }
 
       const clock = new THREE.Clock();
       const render = () => {
@@ -127,6 +140,7 @@ export default function ThreeBackground() {
         if (frameId) cancelAnimationFrame(frameId);
         window.removeEventListener("resize", onResize);
         window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("touchmove", onTouchMove);
         geometry.dispose();
         material.dispose();
         renderer.dispose();
