@@ -192,7 +192,7 @@ export default function ThreeBackground() {
     <div
       ref={mountRef}
       aria-hidden="true"
-      className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"
+      className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
     />
   );
 }

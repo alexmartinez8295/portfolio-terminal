@@ -15,13 +15,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body className="bg-black text-neon font-mono flex flex-col min-h-screen">
+      <body className="bg-black text-neon font-mono">
+        {/* Capas de fondo (z-0). El contenido va en una capa relative z-10
+            por encima; así el fondo se ve también en iOS/Safari, donde un
+            z-index negativo fijo queda tapado por el fondo del body. */}
         <Background />
         <ThreeBackground />
-        <Navbar />
-        <main className="p-4 sm:p-7 flex-grow pt-20 sm:pt-24">{children}</main>
-        <Footer />
-        <ChatWidget />
+        <div className="relative z-10 flex flex-col min-h-screen">
+          <Navbar />
+          <main className="p-4 sm:p-7 flex-grow pt-20 sm:pt-24">{children}</main>
+          <Footer />
+          <ChatWidget />
+        </div>
       </body>
     </html>
   );

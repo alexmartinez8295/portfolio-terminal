@@ -13,7 +13,7 @@ export default function Background() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-[#050505]">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#050505]">
       {/* Dynamic Grid */}
       <div 
         className="absolute inset-0 opacity-20"
