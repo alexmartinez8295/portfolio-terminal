@@ -59,3 +59,14 @@ model ContactMessage {
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+// Historial del chatbot en WhatsApp, una fila por mensaje, agrupado por teléfono.
+model WhatsappMessage {
+  id        Int      @id @default(autoincrement())
+  phone     String
+  role      String // "user" | "assistant"
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([phone])
+}

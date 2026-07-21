@@ -101,7 +101,7 @@ export default function Home() {
                 <img
                   src={profile.image}
                   alt={profile.name}
-                  className="w-full h-full object-cover rounded-[20px] grayscale hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
+                  className="w-full h-full object-cover rounded-[20px] transition-all duration-700 scale-105 hover:scale-100"
                 />
               ) : (
                 <div className="w-full h-full bg-zinc-900/50 flex items-center justify-center text-neon/30 font-mono text-sm border-2 border-dashed border-neon/20 rounded-[20px]">
@@ -171,7 +171,7 @@ export default function Home() {
                             <img 
                               src={section.image} 
                               alt={section.title} 
-                              className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-700 relative z-10"
+                              className="max-w-full max-h-full object-contain transition-all duration-700 relative z-10"
                             />
                             
                           </div>
@@ -271,7 +271,7 @@ export default function Home() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   ) : (
                     <div className="w-full h-full bg-zinc-900/50 flex flex-col items-center justify-center text-neon/20 font-mono text-[10px] gap-2">

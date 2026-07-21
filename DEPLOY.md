@@ -99,6 +99,8 @@ Project → **Settings** → **Environment Variables** (entorno *Production* y *
 | `ADMIN_PASSWORD`       | *(contraseña fuerte)*                                       |
 | `BLOB_READ_WRITE_TOKEN`| *(se añade solo al crear el store de Blob)*                 |
 | `GEMINI_API_KEY`       | *(clave gratuita del chatbot: https://aistudio.google.com/apikey)* |
+| `TWILIO_AUTH_TOKEN`    | *(solo si conectas WhatsApp: Auth Token de https://console.twilio.com)* |
+| `TWILIO_WEBHOOK_URL`   | *(opcional: `https://<tu-dominio>.vercel.app/api/whatsapp`)*        |
 
 > **Chatbot IA:** el asistente flotante usa Google Gemini y lee el contexto
 > (perfil, proyectos, blog) desde la misma BD de Turso. Sin `GEMINI_API_KEY` el
@@ -140,6 +142,62 @@ vercel --prod
 - En `/admin` puedes crear/editar y **subir una imagen nueva** (se aloja en Blob; la URL
   será `https://<...>.public.blob.vercel-storage.com/...`).
 - `/admin` redirige a `/login` si no hay sesión (lo hace `proxy.js`).
+
+---
+
+## 6. (Futuro release) Conectar el chatbot a WhatsApp con Twilio
+
+> ⚠️ **Actualmente DESHABILITADO.** El webhook `app/api/whatsapp/route.js` está
+> comentado a propósito para un release futuro, así que esta integración **no está
+> activa**. Los pasos de abajo son la guía para cuando se decida activarla; el
+> primer paso será descomentar ese archivo.
+
+El webhook vivirá en `/api/whatsapp` y reutiliza el mismo "cerebro" de Gemini.
+
+### 6.1. Crear la tabla nueva en Turso
+
+El chatbot de WhatsApp guarda el historial por número en la tabla `WhatsappMessage`.
+En local ya se creó con `prisma migrate dev`; en **producción (Turso)** hay que
+aplicarla a mano una vez:
+
+```bash
+turso db shell portfolio "
+CREATE TABLE IF NOT EXISTS \"WhatsappMessage\" (
+  \"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  \"phone\" TEXT NOT NULL,
+  \"role\" TEXT NOT NULL,
+  \"content\" TEXT NOT NULL,
+  \"createdAt\" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS \"WhatsappMessage_phone_idx\" ON \"WhatsappMessage\"(\"phone\");
+"
+```
+
+### 6.2. Configurar Twilio
+
+1. Crea una cuenta en [Twilio](https://www.twilio.com/try-twilio).
+2. Activa el **WhatsApp Sandbox**: Console → **Messaging → Try it out → Send a
+   WhatsApp message**. Te da un número de Twilio y un código tipo `join <palabra>`
+   que cada quien envía por WhatsApp a ese número para unirse al sandbox (ideal
+   para pruebas, sin verificar negocio).
+3. En la config del sandbox, en **"When a message comes in"**, pon la URL de tu
+   webhook con método **POST**:
+   ```
+   https://<tu-dominio>.vercel.app/api/whatsapp
+   ```
+4. En Vercel añade `TWILIO_AUTH_TOKEN` (de Console → Account Info). Opcionalmente
+   `TWILIO_WEBHOOK_URL` con la URL exacta de arriba si la validación de firma falla.
+5. Escribe por WhatsApp al número del sandbox (tras enviar el `join ...`) y el bot
+   responderá. Las cotizaciones aparecen igualmente en `/admin/contact`.
+
+> **Producción real (número propio):** para un número de WhatsApp propio sin
+> sandbox necesitas registrar un *WhatsApp Sender* en Twilio (requiere verificación
+> de negocio en Meta). El sandbox es suficiente para pruebas y demos.
+
+> **Nota sobre tiempos:** Twilio espera la respuesta del webhook en ~10-15 s. Gemini
+> Flash suele responder en pocos segundos, pero en arranques en frío de Vercel puede
+> acercarse al límite. Si ves mensajes que no llegan, ese es el motivo; se puede
+> migrar a respuesta asíncrona (responder vacío y enviar luego vía API REST de Twilio).
 
 ---
 
