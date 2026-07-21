@@ -56,8 +56,37 @@ export default function ThreeBackground() {
       // Menor pixelRatio en móvil para no exigir de más a la GPU.
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setClearColor(0x000000, 0); // transparente: deja ver el fondo negro
+      renderer.setClearColor(0x000000, 0); // transparente: deja ver el fondo/rejilla detrás
+      renderer.domElement.style.display = "block";
       mount.appendChild(renderer.domElement);
+
+      // Sprite de punto suave (degradado radial) generado en runtime.
+      // Evita el cuadrado por defecto y, con NormalBlending, se compositan
+      // correctamente sobre un canvas transparente también en GPUs móviles
+      // (AdditiveBlending sobre alpha suele salir invisible en móvil).
+      const makeDotTexture = () => {
+        const size = 64;
+        const c = document.createElement("canvas");
+        c.width = c.height = size;
+        const ctx = c.getContext("2d");
+        const g = ctx.createRadialGradient(
+          size / 2,
+          size / 2,
+          0,
+          size / 2,
+          size / 2,
+          size / 2
+        );
+        g.addColorStop(0, "rgba(255,255,255,1)");
+        g.addColorStop(0.4, "rgba(255,255,255,0.6)");
+        g.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, size, size);
+        const tex = new THREE.CanvasTexture(c);
+        tex.colorSpace = THREE.SRGBColorSpace;
+        return tex;
+      };
+      const dotTexture = makeDotTexture();
 
       // --- Campo de partículas (menos densidad en móvil) ---
       const COUNT = isMobile ? 650 : 1400;
@@ -89,11 +118,13 @@ export default function ThreeBackground() {
 
       const material = new THREE.PointsMaterial({
         // Partículas algo más grandes en móvil para que se aprecien.
-        size: isMobile ? 4 : 3,
+        size: isMobile ? 9 : 7,
+        map: dotTexture,
+        alphaMap: dotTexture,
         vertexColors: true,
         transparent: true,
-        opacity: 0.55,
-        blending: THREE.AdditiveBlending,
+        opacity: 0.9,
+        blending: THREE.NormalBlending,
         depthWrite: false,
         sizeAttenuation: true,
       });
@@ -143,6 +174,7 @@ export default function ThreeBackground() {
         window.removeEventListener("touchmove", onTouchMove);
         geometry.dispose();
         material.dispose();
+        dotTexture.dispose();
         renderer.dispose();
         if (renderer.domElement.parentNode === mount) {
           mount.removeChild(renderer.domElement);
